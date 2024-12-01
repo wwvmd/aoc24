@@ -8,8 +8,8 @@ def read_and_parse_file(file_path):
     for line in lines:
         parts = line.strip().split()
         if len(parts) >= 2:
-            series1.append(parts[0])
-            series2.append(parts[1])
+            series1.append(int(parts[0]))
+            series2.append(int(parts[1]))
     
     return series1, series2
 
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     similiarity_score = 0 
     for s1 in series1_sorted:
         print(f'element is {s1} and number of occurences is {series2_sorted.count(s1)}')
-        element_score = int(s1) * series2_sorted.count(s1)
+        element_score = s1 * series2_sorted.count(s1)
         similiarity_score += element_score
 
     print("Similiarity Score:", similiarity_score)

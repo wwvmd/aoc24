@@ -8,13 +8,13 @@ def read_and_parse_file(file_path):
     for line in lines:
         parts = line.strip().split()
         if len(parts) >= 2:
-            series1.append(parts[0])
-            series2.append(parts[1])
+            series1.append(int(parts[0]))
+            series2.append(int(parts[1]))
     
     return series1, series2
 
 if __name__ == "__main__":
-    file_path = 'day1/input/real.txt'
+    file_path = 'day1/input/test.txt'
     series1, series2 = read_and_parse_file(file_path)
     print("Series 1:", series1)
     print("Series 2:", series2)
@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     differences = []
     for s1, s2 in zip(series1_sorted, series2_sorted):
-        differences.append(abs(int(s1) - int(s2)))
+        differences.append(abs(s1-s2))
 
 
     total_difference = sum(differences)
