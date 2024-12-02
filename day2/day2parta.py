@@ -7,6 +7,13 @@ with open(file_path, 'r') as file:
     lines = [line.split() for line in file.readlines()]
     print(lines)
 
+    for lin in lines:
+
+        for i in range(len(lin)):
+            print(lin[i])
+        print('end of lin')
+
+
 
 
 
