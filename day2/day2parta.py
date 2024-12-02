@@ -15,7 +15,7 @@ def compare(a, b, asc):
     return is_safe, asc
 
 # Read each line of input/test.txt into a pandas Series
-file_path = 'day2/input/test.txt'
+file_path = 'day2/input/real.txt'
 
 with open(file_path, 'r') as file:
     lines = [line.split() for line in file.readlines()]
