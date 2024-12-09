@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
 
 
-    def move(df,x, y):
+    def move(direction,df,x, y):
 
         #Before moving check if the next position
 
@@ -36,5 +36,5 @@ if __name__ == "__main__":
         df.iloc[x - 1, y] = '^'
 
 
-    moveUp(df, 6, 4)
+    move(df, 6, 4)
     print(df)
