@@ -1,0 +1,137 @@
+def calculate_dot_blocks(s):
+    dot_positions = {}
+    current_block_start = None
+    current_block_length = 0
+
+    for index, value in enumerate(s):
+        if value == '.':
+            if current_block_start is None:
+                current_block_start = index
+            current_block_length += 1
+        else:
+            if current_block_start is not None:
+                dot_positions[current_block_start] = current_block_length
+                current_block_start = None
+                current_block_length = 0
+
+    if current_block_start is not None:
+        dot_positions[current_block_start] = current_block_length
+    return dot_positions
+
+
+
+with open('day9/input/real.txt', 'r') as file:
+    data = file.read()
+
+print(data)
+
+s = []
+
+blank = False
+id = 0
+for c in data:
+    print(c)
+    number = int(c)
+    
+    for i in range(int(c)):
+        if blank:
+            s.append('.')
+        else:
+            s.append(id)
+    if not blank:
+        id += 1
+    blank = not blank
+
+print(s)    
+
+
+dot_count = s.count('.')
+print(f"Number of elements containing '.': {dot_count}")
+
+
+
+dot_positions = calculate_dot_blocks(s)
+
+print(dot_positions)
+
+
+continuous_blocks = {}
+current_value = None
+current_length = 0
+
+for value in reversed(s):
+    if value == '.':
+        continue
+    if value == current_value:
+        current_length += 1
+    else:
+        if current_value is not None:
+            if current_value in continuous_blocks:
+                continuous_blocks[current_value].append(current_length)
+            else:
+                continuous_blocks[current_value] = current_length
+        current_value = value
+        current_length = 1
+
+if current_value is not None:
+    if current_value in continuous_blocks:
+        continuous_blocks[current_value].append(current_length)
+    else:
+        continuous_blocks[current_value] = current_length
+
+print(continuous_blocks)
+
+
+#iterate over each dot block
+for contblock_number, contblock_size in continuous_blocks.items():
+    #print(f"position: {contblock_number}, size_of_block: {contblock_size}")
+    dot_positions = calculate_dot_blocks(s)
+    for dot_position, dot_size in dot_positions.items():
+        if (dot_size >= contblock_size):
+            #first replace the contblock_number with '.' in list s
+            for i in range(len(s)):
+                if s[i] == contblock_number:
+                    s[i] = '?'
+            for i in range(contblock_size):
+                s[dot_position + i] = contblock_number
+            break
+
+#print(f'final: {s}')
+
+#print(''.join(map(str, s)))
+
+# for i in range(dot_count):
+#     c = s.pop()
+#     if '.' in s:
+#         index = s.index('.')
+#         s[index] = c
+
+# print(s)
+
+
+
+
+
+
+
+
+
+
+id_counter = 0
+cumulative_sum = 0
+
+# x_string = '00992111777.44.333....5555.6666.....8888..'
+
+
+for element in s:
+    if element == '.' or element == '?':
+       id_counter += 1
+       continue
+    cumulative_sum += id_counter * element
+    id_counter += 1
+
+print(f"Cumulative sum: {cumulative_sum}")
+
+    
+
+
